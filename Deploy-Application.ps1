@@ -65,7 +65,7 @@ Try {
 	## Variables: Application
 	[string]$appVendor = 'Microsoft'
 	[string]$appName = 'Office 365'
-	[string]$appVersion = '1908'
+	[string]$appVersion = '1908 - SDL'
 	[string]$appArch = 'x64'
 	[string]$appLang = 'EN'
 	[string]$appRevision = '01'
@@ -139,8 +139,8 @@ Try {
 		}
 
 		## <Perform Installation tasks here>
-		Show-InstallationProgress -StatusMessage "Updating Microsoft Office. Please wait..."
-		$exitCode = Execute-Process -Path "$dirFiles\setup.exe" -Parameters "/configure O365-1908-SingleUser.xml" -WindowStyle "Hidden" -PassThru -WaitForMsiExec
+		Show-InstallationProgress -StatusMessage "Installing Microsoft Office. Please wait..."
+		$exitCode = Execute-Process -Path "$dirFiles\setup.exe" -Parameters "/configure O365-1908-SharedDevice.xml" -WindowStyle "Hidden" -PassThru -WaitForMsiExec
 		If (($exitCode.ExitCode -ne "0") -and ($mainExitCode.ExitCode -ne "3010")) {
 			$mainExitCode = $exitCode.ExitCode
 		}
@@ -185,7 +185,7 @@ Try {
 		}
 
 		# <Perform Uninstallation tasks here>
-		Show-InstallationProgress -StatusMessage "Updating Microsoft Office. Please wait..."
+		Show-InstallationProgress -StatusMessage "Uninstalling Microsoft Office. Please wait..."
 		$exitCode = Execute-Process -Path "$dirFiles\setup.exe" -Parameters "/configure UninstallO365ProPlus.xml" -WindowStyle "Hidden" -PassThru -WaitForMsiExec
 		If (($exitCode.ExitCode -ne "0") -and ($mainExitCode.ExitCode -ne "3010")) {
 			$mainExitCode = $exitCode.ExitCode
